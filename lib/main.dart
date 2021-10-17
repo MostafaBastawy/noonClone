@@ -1,6 +1,13 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:noon_clone/cubit/bloc_observer.dart';
+import 'package:noon_clone/cubit/cubit.dart';
+import 'package:noon_clone/modules/home_page_layout.dart';
+import 'package:noon_clone/shared/themes.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -9,12 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      darkTheme: ThemeData(),
-      theme: ThemeData(),
-      home: null,
+    return BlocProvider(
+      create: (BuildContext context) => AppCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        theme: lightMode,
+        home: const HomeLayout(),
+      ),
     );
   }
 }
