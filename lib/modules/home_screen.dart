@@ -9,20 +9,11 @@ class HomeScreen extends StatelessWidget {
     return Column(
       children: [
         CarouselSlider(
-          items: [
-            NetworkImage(
-                'https://student.valuxapps.com/storage/uploads/banners/16283378549Vinn.banner foods@2x.png'),
-            NetworkImage(
-                'https://student.valuxapps.com/storage/uploads/banners/16283378549Vinn.banner foods@2x.png'),
-          ]
-              .map(
-                (e) => Image(
-                  image: NetworkImage(e.toString()),
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              )
-              .toList(),
+          items: <Widget>[
+            Image.asset('assets/images/carousel_slider/carousel_image1.jpg'),
+            Image.asset('assets/images/carousel_slider/carousel_image2.jpg'),
+            Image.asset('assets/images/carousel_slider/carousel_image3.jpg'),
+          ],
           options: CarouselOptions(
             height: 250.0,
             initialPage: 0,
@@ -35,9 +26,6 @@ class HomeScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
           ),
         ),
-        Image(
-            image: NetworkImage(
-                'https://student.valuxapps.com/storage/uploads/banners/16283378549Vinn.banner foods@2x.png')),
       ],
     );
   }
