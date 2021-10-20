@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "388897879039",
+    "project_id": "noon-clone-a8f6a",
+    "storage_bucket": "noon-clone-a8f6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388897879039:android:d500d3cb0ce790eaefadca",
+        "android_client_info": {
+          "package_name": "com.mostafabastawyy.noon_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388897879039-nen6fk2fbum1g585tnceskg6t4bgoe3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVMaWLr7hdn3o7nA28O0Ot5vaxihVMja0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388897879039-nen6fk2fbum1g585tnceskg6t4bgoe3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
