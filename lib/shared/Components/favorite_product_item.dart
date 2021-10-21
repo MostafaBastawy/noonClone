@@ -5,7 +5,6 @@ class FavoritesProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[100],
@@ -54,10 +53,13 @@ class FavoritesProductItem extends StatelessWidget {
               Container(
                 height: 100.0,
                 width: 80.0,
-                child: const Image(
-                  image: NetworkImage(
-                      'https://scontent.fcai20-4.fna.fbcdn.net/v/t1.6435-9/240669017_185430023562436_2896551028759384734_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=mJs--nXjTI4AX-wY7i4&_nc_ht=scontent.fcai20-4.fna&oh=7cf7315511d45c6cc88935ba7cf949f6&oe=6196FFB3'),
-                  fit: BoxFit.fill,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                        'https://scontent.fcai20-4.fna.fbcdn.net/v/t1.6435-9/240669017_185430023562436_2896551028759384734_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=mJs--nXjTI4AX-wY7i4&_nc_ht=scontent.fcai20-4.fna&oh=7cf7315511d45c6cc88935ba7cf949f6&oe=6196FFB3'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ],
