@@ -14,8 +14,8 @@ ThemeData lightMode = ThemeData(
     selectedIconTheme: IconThemeData(
       color: Colors.amber[400],
     ),
-    selectedLabelStyle: TextStyle(color: Colors.black),
-    unselectedLabelStyle: TextStyle(color: Colors.black),
+    selectedLabelStyle: const TextStyle(color: Colors.black),
+    unselectedLabelStyle: const TextStyle(color: Colors.black),
     selectedItemColor: Colors.black,
   ),
 );
