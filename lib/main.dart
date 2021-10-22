@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/bloc_observer.dart';
 import 'package:noon_clone/cubit/cubit.dart';
-import 'package:noon_clone/modules/main_page_layout.dart';
+import 'package:noon_clone/modules/register_screen.dart';
 import 'package:noon_clone/shared/themes.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: lightMode,
-        home: const HomeLayout(),
+        home: RegisterScreen(),
       ),
     );
   }
