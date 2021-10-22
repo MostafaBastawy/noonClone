@@ -22,7 +22,7 @@ class AppCubit extends Cubit<AppStates> {
     const HomeScreen(),
     const CategoriesScreen(),
     const FavoritesScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
     const CartScreen(),
   ];
 }
