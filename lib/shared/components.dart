@@ -29,7 +29,7 @@ void navigateAndFinish({
 
 Widget defaultButton({
   double width = double.infinity,
-  Color background = Colors.blue,
+  Color background = Colors.amber,
   bool isUpperCase = true,
   double radius = 3.0,
   required Function function,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/cubit/states.dart';
 import 'package:noon_clone/modules/login_screen.dart';
-import 'package:noon_clone/shared/Components/components.dart';
+import 'package:noon_clone/shared/components.dart';
 
 class RegisterScreen extends StatelessWidget {
   var emailController = TextEditingController();
@@ -198,7 +198,12 @@ class RegisterScreen extends StatelessWidget {
                               navigateTo(
                                   context: context, widget: LoginScreen());
                             },
-                            child: const Text('Login'),
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.amber,
+                              ),
+                            ),
                           ),
                         ],
                       ),

@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/cubit/states.dart';
+import 'package:noon_clone/modules/main_page_layout.dart';
 import 'package:noon_clone/modules/register_screen.dart';
-import 'package:noon_clone/shared/Components/components.dart';
+import 'package:noon_clone/shared/components.dart';
+import 'package:noon_clone/shared/shared_preference.dart';
 
 class LoginScreen extends StatelessWidget {
   var emailController = TextEditingController();
@@ -14,11 +17,11 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (BuildContext context, state) {
-        // if (state is AppUserLoginSuccessState) {
-        //   CacheHelper.setData(
-        //       key: 'uid', value: FirebaseAuth.instance.currentUser!.uid);
-        //   navigateAndFinish(context: context, widget: HomeLayout());
-        // }
+        if (state is AppUserLoginSuccessState) {
+          CacheHelper.setData(
+              key: 'uid', value: FirebaseAuth.instance.currentUser!.uid);
+          navigateAndFinish(context: context, widget: HomeLayout());
+        }
       },
       builder: (BuildContext context, Object? state) {
         AppCubit cubit = AppCubit.get(context);
@@ -80,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          prefixIcon: Icon(Icons.lock_outline),
                         ),
                         onTap: () {},
                         onChanged: (value) {},
@@ -117,7 +120,12 @@ class LoginScreen extends StatelessWidget {
                               navigateTo(
                                   context: context, widget: RegisterScreen());
                             },
-                            child: const Text('Register'),
+                            child: const Text(
+                              'Register',
+                              style: TextStyle(
+                                color: Colors.amber,
+                              ),
+                            ),
                           ),
                         ],
                       ),

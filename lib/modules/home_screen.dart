@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:noon_clone/shared/Components/circle_category_item.dart';
-import 'package:noon_clone/shared/Components/components.dart';
 import 'package:noon_clone/shared/Components/product_item.dart';
+import 'package:noon_clone/shared/components.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
