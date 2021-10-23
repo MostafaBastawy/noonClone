@@ -19,3 +19,27 @@ class AppUserRegisterErrorState extends AppStates {
 
   AppUserRegisterErrorState(this.error);
 }
+
+class AppCreateUserInDatabaseSuccessState extends AppStates {}
+
+class AppCreateUserInDatabaseErrorState extends AppStates {
+  final String error;
+
+  AppCreateUserInDatabaseErrorState(this.error);
+}
+
+class AppGetUserDataSuccessState extends AppStates {}
+
+class AppGetUserDataErrorState extends AppStates {
+  final String error;
+
+  AppGetUserDataErrorState(this.error);
+}
+
+class AppUserSignOutSuccessState extends AppStates {}
+
+class AppUserSignOutErrorState extends AppStates {
+  final String error;
+
+  AppUserSignOutErrorState(this.error);
+}

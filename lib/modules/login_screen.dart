@@ -93,11 +93,11 @@ class LoginScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.03),
                       defaultButton(
                         function: () {
-                          // if (formKey.currentState!.validate()) {
-                          //   cubit.userLogin(
-                          //       email: emailController.text,
-                          //       password: passwordController.text);
-                          // }
+                          if (formKey.currentState!.validate()) {
+                            cubit.userLogin(
+                                email: emailController.text,
+                                password: passwordController.text);
+                          }
                         },
                         text: 'LOGIN',
                         color: Colors.white,

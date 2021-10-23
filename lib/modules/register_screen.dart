@@ -169,14 +169,16 @@ class RegisterScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.03),
                       defaultButton(
                         function: () {
-                          // if (formKey.currentState!.validate()) {
-                          //   cubit.userRegister(
-                          //     name: nameController.text,
-                          //     email: emailController.text,
-                          //     password: passwordController.text,
-                          //     phone: phoneController.text,
-                          //   );
-                          // }
+                          if (formKey.currentState!.validate()) {
+                            cubit.userRegister(
+                              firstName: firstNameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              phone: phoneController.text,
+                              fullName: fullNameController.text,
+                              address: addressController.text,
+                            );
+                          }
                         },
                         text: 'Register',
                       ),
