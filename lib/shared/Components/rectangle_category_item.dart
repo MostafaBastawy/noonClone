@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noon_clone/models/category_model.dart';
 
 class RectangleCategoryItem extends StatelessWidget {
-  const RectangleCategoryItem({Key? key}) : super(key: key);
-
+  CategoryDataModel? categoryDataModel;
+  RectangleCategoryItem(this.categoryDataModel, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,9 +23,8 @@ class RectangleCategoryItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://m.media-amazon.com/images/I/51wJNDMnmnL._AC_SY741_.jpg'),
+                image: DecorationImage(
+                  image: NetworkImage('${categoryDataModel!.categoryImage}'),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -33,8 +33,8 @@ class RectangleCategoryItem extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          const Text(
-            'Mobiles',
+          Text(
+            '${categoryDataModel!.categoryName}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

@@ -15,7 +15,7 @@ class UserDataModel {
     this.uid,
   );
 
-  UserDataModel.fromJson(Map json) {
+  UserDataModel.fromJson(Map<String, dynamic> json) {
     firstName = json['firstName'];
     fullName = json['fullName'];
     email = json['email'];

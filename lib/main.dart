@@ -25,12 +25,15 @@ void main() async {
 class MyApp extends StatelessWidget {
   final Widget? startScreen;
 
-  MyApp({Key? key, this.startScreen}) : super(key: key);
+  const MyApp({Key? key, this.startScreen}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getUserData(),
+      create: (BuildContext context) => AppCubit()
+        ..getCategoryData()
+        ..getUserData()
+        ..getProducts(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
