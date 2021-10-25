@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/models/product_model.dart';
 
 class ProductItem extends StatelessWidget {
   ProductDataModel? productDataModel;
+  int? index;
 
   ProductItem(this.productDataModel, {Key? key}) : super(key: key);
   @override
@@ -51,13 +53,31 @@ class ProductItem extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  AppCubit.get(context).addToFavorites(
+                    description: productDataModel!.description.toString(),
+                    imageUrl: productDataModel!.imageUrl.toString(),
+                    name: productDataModel!.name.toString(),
+                    price: productDataModel!.price.toString(),
+                    productUid: '${productDataModel!.pUid}',
+                    pUid: productDataModel!.pUid.toString(),
+                  );
+                },
                 icon: const Icon(Icons.favorite),
                 padding: const EdgeInsets.all(0),
               ),
               const Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  AppCubit.get(context).addToCart(
+                    description: productDataModel!.description.toString(),
+                    imageUrl: productDataModel!.imageUrl.toString(),
+                    name: productDataModel!.name.toString(),
+                    price: productDataModel!.price.toString(),
+                    productUid: '${productDataModel!.pUid}',
+                    pUid: productDataModel!.pUid.toString(),
+                  );
+                },
                 icon: const Icon(Icons.shopping_cart),
                 padding: const EdgeInsets.all(0),
               ),

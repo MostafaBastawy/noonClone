@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noon_clone/cubit/cubit.dart';
+import 'package:noon_clone/models/cart_model.dart';
 
 class CartProductItem extends StatelessWidget {
-  const CartProductItem({Key? key}) : super(key: key);
-
+  CartDataModel? cartDataModel;
+  CartProductItem(this.cartDataModel, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,25 +28,25 @@ class CartProductItem extends StatelessWidget {
                 width: 200.0,
                 child: Column(
                   children: [
-                    const Text(
-                      'Product Description Product Description Product Description Product Description Product Description',
+                    Text(
+                      '${cartDataModel!.description}',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 15.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
                     const SizedBox(
                       height: 5.0,
                     ),
                     Row(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'EGP',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
                         Text(
-                          '111.00',
-                          style: TextStyle(
+                          '${cartDataModel!.price}',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
                       ],
@@ -56,9 +59,8 @@ class CartProductItem extends StatelessWidget {
                 width: 80.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                        'https://scontent.fcai20-4.fna.fbcdn.net/v/t1.6435-9/240669017_185430023562436_2896551028759384734_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=mJs--nXjTI4AX-wY7i4&_nc_ht=scontent.fcai20-4.fna&oh=7cf7315511d45c6cc88935ba7cf949f6&oe=6196FFB3'),
+                  image: DecorationImage(
+                    image: NetworkImage('${cartDataModel!.imageUrl}'),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -103,7 +105,13 @@ class CartProductItem extends StatelessWidget {
                   ],
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    AppCubit.get(context).removeFromCart(
+                      userEmail:
+                          FirebaseAuth.instance.currentUser!.email.toString(),
+                      pUid: cartDataModel!.pUid.toString(),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(

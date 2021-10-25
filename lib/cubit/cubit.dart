@@ -6,7 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/states.dart';
+import 'package:noon_clone/models/cart_model.dart';
 import 'package:noon_clone/models/category_model.dart';
+import 'package:noon_clone/models/favorites_model.dart';
 import 'package:noon_clone/models/product_model.dart';
 import 'package:noon_clone/models/user_model.dart';
 import 'package:noon_clone/modules/cart_screen.dart';
@@ -66,6 +68,8 @@ class AppCubit extends Cubit<AppStates> {
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
       getUserData();
+      getFavorites();
+      getCartItems();
       emit(AppUserLoginSuccessState());
     }).catchError((error) {
       emit(AppUserLoginErrorState(error.toString()));
@@ -75,6 +79,7 @@ class AppCubit extends Cubit<AppStates> {
   void userSignOut() {
     FirebaseAuth.instance.signOut().then((value) {
       emit(AppUserSignOutSuccessState());
+
       Future.delayed(const Duration(seconds: 1)).then((value) {
         currentIndex = 0;
         CacheHelper.removeData(key: 'uid');
@@ -310,6 +315,124 @@ class AppCubit extends Cubit<AppStates> {
       });
     }).catchError((error) {
       emit(AppGetProductsDataErrorState(error));
+    });
+  }
+
+  void addToFavorites({
+    required String description,
+    required String imageUrl,
+    required String name,
+    required String price,
+    String? userUid,
+    String? pUid,
+    required String productUid,
+  }) {
+    FavoriteDataModel favoriteDataModel = FavoriteDataModel(
+      description,
+      imageUrl,
+      name,
+      price,
+      userUid = FirebaseAuth.instance.currentUser!.uid,
+      pUid,
+    );
+
+    FirebaseFirestore.instance
+        .collection('favorites')
+        .doc('${FirebaseAuth.instance.currentUser!.email}$productUid')
+        .set(favoriteDataModel.toMap())
+        .then((value) {
+      emit(AppAddToFavoritesSuccessState());
+    }).catchError((error) {
+      emit(AppAddToFavoritesErrorState(error.toString()));
+    });
+  }
+
+  List<FavoriteDataModel> favorites = [];
+  void getFavorites() {
+    FirebaseFirestore.instance
+        .collection('favorites')
+        .where("userUid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .listen((event) {
+      favorites = [];
+      event.docs.forEach((element) {
+        favorites.add(FavoriteDataModel.fromJson(element.data()));
+      });
+      emit(AppGetFavoritesDataSuccessState());
+    });
+  }
+
+  void removeFromFavorite({
+    required String userUid,
+    required String pUid,
+  }) {
+    FirebaseFirestore.instance
+        .collection('favorites')
+        .doc('$userUid$pUid')
+        .delete()
+        .then((value) {
+      emit(AppRemoveFromFavoritesSuccessState());
+    }).catchError((error) {
+      emit(AppRemoveFromFavoritesErrorState(error.toString()));
+    });
+  }
+
+  void addToCart({
+    required String description,
+    required String imageUrl,
+    required String name,
+    required String price,
+    String? pUid,
+    required String productUid,
+    String? userUid,
+  }) {
+    CartDataModel cartDataModel = CartDataModel(
+      description,
+      imageUrl,
+      name,
+      price,
+      userUid = FirebaseAuth.instance.currentUser!.uid,
+      pUid,
+    );
+
+    FirebaseFirestore.instance
+        .collection('cart')
+        .doc('${FirebaseAuth.instance.currentUser!.email}$productUid')
+        .set(cartDataModel.toMap())
+        .then((value) {
+      emit(AppAddToCartSuccessState());
+    }).catchError((error) {
+      emit(AppAddToCartErrorState(error.toString()));
+    });
+  }
+
+  List<CartDataModel> cart = [];
+  void getCartItems() {
+    FirebaseFirestore.instance
+        .collection('cart')
+        .where("userUid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .listen((event) {
+      cart = [];
+      event.docs.forEach((element) {
+        cart.add(CartDataModel.fromJson(element.data()));
+      });
+      emit(AppGetCartDataSuccessState());
+    });
+  }
+
+  void removeFromCart({
+    required String userEmail,
+    required String pUid,
+  }) {
+    FirebaseFirestore.instance
+        .collection('cart')
+        .doc('$userEmail$pUid')
+        .delete()
+        .then((value) {
+      emit(AppRemoveFromCartSuccessState());
+    }).catchError((error) {
+      emit(AppRemoveFromCartErrorState(error.toString()));
     });
   }
 }

@@ -1,36 +1,35 @@
-class ProductDataModel {
-  String? categoryName;
+class CartDataModel {
   String? description;
   String? imageUrl;
   String? name;
   String? price;
+  String? userUid;
   String? pUid;
-
-  ProductDataModel(
-    this.categoryName,
+  CartDataModel(
     this.description,
     this.imageUrl,
     this.name,
     this.price,
+    this.userUid,
     this.pUid,
   );
 
-  ProductDataModel.fromJson(Map<String, dynamic> json) {
-    categoryName = json['category'];
+  CartDataModel.fromJson(Map<String, dynamic> json) {
     description = json['description'];
     imageUrl = json['imageUrl'];
     name = json['name'];
     price = json['price'];
+    userUid = json['userUid'];
     pUid = json['pUid'];
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'category': categoryName,
       'description': description,
       'imageUrl': imageUrl,
       'name': name,
       'price': price,
+      'userUid': userUid,
       'pUid': pUid,
     };
   }

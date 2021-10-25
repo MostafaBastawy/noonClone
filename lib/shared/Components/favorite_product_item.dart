@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:noon_clone/cubit/cubit.dart';
+import 'package:noon_clone/models/favorites_model.dart';
 
 class FavoritesProductItem extends StatelessWidget {
-  const FavoritesProductItem({Key? key}) : super(key: key);
+  FavoriteDataModel? favoriteDataModel;
+  //ProductDataModel? productDataModel;
+  FavoritesProductItem(this.favoriteDataModel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +29,25 @@ class FavoritesProductItem extends StatelessWidget {
                 width: 200.0,
                 child: Column(
                   children: [
-                    const Text(
-                      'Product Description Product Description Product Description Product Description Product Description',
+                    Text(
+                      '${favoriteDataModel!.description}',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 15.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
                     const SizedBox(
                       height: 5.0,
                     ),
                     Row(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'EGP',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
                         Text(
-                          '111.00',
-                          style: TextStyle(
+                          '${favoriteDataModel!.price}',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
                       ],
@@ -55,9 +60,8 @@ class FavoritesProductItem extends StatelessWidget {
                 width: 80.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                        'https://scontent.fcai20-4.fna.fbcdn.net/v/t1.6435-9/240669017_185430023562436_2896551028759384734_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=e3f864&_nc_ohc=mJs--nXjTI4AX-wY7i4&_nc_ht=scontent.fcai20-4.fna&oh=7cf7315511d45c6cc88935ba7cf949f6&oe=6196FFB3'),
+                  image: DecorationImage(
+                    image: NetworkImage('${favoriteDataModel!.imageUrl}'),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -71,7 +75,17 @@ class FavoritesProductItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    AppCubit.get(context).addToCart(
+                      description: favoriteDataModel!.description.toString(),
+                      imageUrl: favoriteDataModel!.imageUrl.toString(),
+                      name: favoriteDataModel!.name.toString(),
+                      price: favoriteDataModel!.price.toString(),
+                      productUid: '${favoriteDataModel!.pUid}',
+                      pUid: favoriteDataModel!.pUid.toString(),
+                    );
+                    print('hiii');
+                  },
                   child: Row(
                     children: [
                       Icon(
@@ -88,7 +102,14 @@ class FavoritesProductItem extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    print('hrrr');
+                    AppCubit.get(context).removeFromFavorite(
+                      userUid:
+                          FirebaseAuth.instance.currentUser!.email.toString(),
+                      pUid: favoriteDataModel!.pUid.toString(),
+                    );
+                  },
                   child: Row(
                     children: [
                       Icon(

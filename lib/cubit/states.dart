@@ -59,3 +59,39 @@ class AppGetProductsDataErrorState extends AppStates {
 
   AppGetProductsDataErrorState(this.error);
 }
+
+class AppGetFavoritesDataSuccessState extends AppStates {}
+
+class AppAddToFavoritesSuccessState extends AppStates {}
+
+class AppAddToFavoritesErrorState extends AppStates {
+  final String error;
+
+  AppAddToFavoritesErrorState(this.error);
+}
+
+class AppAddToCartSuccessState extends AppStates {}
+
+class AppAddToCartErrorState extends AppStates {
+  final String error;
+
+  AppAddToCartErrorState(this.error);
+}
+
+class AppGetCartDataSuccessState extends AppStates {}
+
+class AppRemoveFromFavoritesSuccessState extends AppStates {}
+
+class AppRemoveFromFavoritesErrorState extends AppStates {
+  final String error;
+
+  AppRemoveFromFavoritesErrorState(this.error);
+}
+
+class AppRemoveFromCartSuccessState extends AppStates {}
+
+class AppRemoveFromCartErrorState extends AppStates {
+  final String error;
+
+  AppRemoveFromCartErrorState(this.error);
+}
