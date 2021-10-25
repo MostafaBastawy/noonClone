@@ -363,12 +363,12 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void removeFromFavorite({
-    required String userUid,
+    required String userEmail,
     required String pUid,
   }) {
     FirebaseFirestore.instance
         .collection('favorites')
-        .doc('$userUid$pUid')
+        .doc('$userEmail$pUid')
         .delete()
         .then((value) {
       emit(AppRemoveFromFavoritesSuccessState());

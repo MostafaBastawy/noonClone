@@ -84,7 +84,11 @@ class FavoritesProductItem extends StatelessWidget {
                       productUid: '${favoriteDataModel!.pUid}',
                       pUid: favoriteDataModel!.pUid.toString(),
                     );
-                    print('hiii');
+                    AppCubit.get(context).removeFromFavorite(
+                      userEmail:
+                          FirebaseAuth.instance.currentUser!.email.toString(),
+                      pUid: favoriteDataModel!.pUid.toString(),
+                    );
                   },
                   child: Row(
                     children: [
@@ -103,9 +107,8 @@ class FavoritesProductItem extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    print('hrrr');
                     AppCubit.get(context).removeFromFavorite(
-                      userUid:
+                      userEmail:
                           FirebaseAuth.instance.currentUser!.email.toString(),
                       pUid: favoriteDataModel!.pUid.toString(),
                     );
