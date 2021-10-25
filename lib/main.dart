@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()
         ..getCategoryData()
-        ..getProducts(),
+        ..getProducts()..getUserData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
