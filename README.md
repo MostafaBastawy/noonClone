@@ -1,6 +1,6 @@
 # noon_clone
 
-A new Flutter project.
+This is a full e-commerce application. I made by using Firebase, Shared Preference and State Management (Bloc). This app connects to the FirebaseFirestore to show you the all products in the store based on the category like (Baby-Electronics-Men's Fashion). Also you add your product to your favorites list to buy later or cart to make an order.
 
 ## Getting Started
 
