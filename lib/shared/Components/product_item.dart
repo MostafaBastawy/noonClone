@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/models/product_model.dart';
+import 'package:noon_clone/models/user_model.dart';
 
 class ProductItem extends StatelessWidget {
   ProductDataModel? productDataModel;
+  UserDataModel? userDataModel;
   int? index;
 
   ProductItem(this.productDataModel, {Key? key}) : super(key: key);
@@ -58,7 +60,7 @@ class ProductItem extends StatelessWidget {
                     description: productDataModel!.description.toString(),
                     imageUrl: productDataModel!.imageUrl.toString(),
                     name: productDataModel!.name.toString(),
-                    price: productDataModel!.price.toString(),
+                    price: productDataModel!.price!,
                     productUid: '${productDataModel!.pUid}',
                     pUid: productDataModel!.pUid.toString(),
                   );
@@ -73,7 +75,7 @@ class ProductItem extends StatelessWidget {
                     description: productDataModel!.description.toString(),
                     imageUrl: productDataModel!.imageUrl.toString(),
                     name: productDataModel!.name.toString(),
-                    price: productDataModel!.price.toString(),
+                    price: productDataModel!.price!,
                     productUid: '${productDataModel!.pUid}',
                     pUid: productDataModel!.pUid.toString(),
                   );

@@ -5,7 +5,6 @@ import 'package:noon_clone/models/favorites_model.dart';
 
 class FavoritesProductItem extends StatelessWidget {
   FavoriteDataModel? favoriteDataModel;
-  //ProductDataModel? productDataModel;
   FavoritesProductItem(this.favoriteDataModel, {Key? key}) : super(key: key);
 
   @override
@@ -80,7 +79,7 @@ class FavoritesProductItem extends StatelessWidget {
                       description: favoriteDataModel!.description.toString(),
                       imageUrl: favoriteDataModel!.imageUrl.toString(),
                       name: favoriteDataModel!.name.toString(),
-                      price: favoriteDataModel!.price.toString(),
+                      price: favoriteDataModel!.price!,
                       productUid: '${favoriteDataModel!.pUid}',
                       pUid: favoriteDataModel!.pUid.toString(),
                     );

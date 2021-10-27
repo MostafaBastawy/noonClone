@@ -25,10 +25,7 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
   void changeBottomNavBar(int index) {
     currentIndex = index;
-    if (currentIndex == 3) {
-      getUserData();
-      emit(AppChangeBottomNavBarState());
-    }
+    getUserData();
     emit(AppChangeBottomNavBarState());
   }
 
@@ -74,6 +71,7 @@ class AppCubit extends Cubit<AppStates> {
       getUserData();
       getFavorites();
       getCartItems();
+
       emit(AppUserLoginSuccessState());
     }).catchError((error) {
       emit(AppUserLoginErrorState(error.toString()));
@@ -100,6 +98,7 @@ class AppCubit extends Cubit<AppStates> {
     required String phone,
     required String address,
     String? uid,
+    int? cartTotal,
   }) {
     UserDataModel userDataModel = UserDataModel(
       firstName,
@@ -108,6 +107,7 @@ class AppCubit extends Cubit<AppStates> {
       phone,
       address,
       uid = FirebaseAuth.instance.currentUser!.uid,
+      cartTotal = 0,
     );
 
     FirebaseFirestore.instance
@@ -122,16 +122,15 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   UserDataModel? userDataModel;
+
   void getUserData() {
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((value) {
-      userDataModel = UserDataModel.fromJson(value.data()!);
+        .snapshots()
+        .listen((event) {
+      userDataModel = UserDataModel.fromJson(event.data()!);
       emit(AppGetUserDataSuccessState());
-    }).catchError((error) {
-      emit(AppGetUserDataErrorState(error.toString()));
     });
   }
 
@@ -326,7 +325,7 @@ class AppCubit extends Cubit<AppStates> {
     required String description,
     required String imageUrl,
     required String name,
-    required String price,
+    required int price,
     String? userUid,
     String? pUid,
     required String productUid,
@@ -385,10 +384,11 @@ class AppCubit extends Cubit<AppStates> {
     required String description,
     required String imageUrl,
     required String name,
-    required String price,
+    required int price,
     String? pUid,
     required String productUid,
     String? userUid,
+    int? counter,
   }) {
     CartDataModel cartDataModel = CartDataModel(
       description,
@@ -397,6 +397,7 @@ class AppCubit extends Cubit<AppStates> {
       price,
       userUid = FirebaseAuth.instance.currentUser!.uid,
       pUid,
+      counter = 1,
     );
 
     FirebaseFirestore.instance
@@ -437,6 +438,33 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppRemoveFromCartSuccessState());
     }).catchError((error) {
       emit(AppRemoveFromCartErrorState(error.toString()));
+    });
+  }
+
+  void updateUserCartTotal({
+    required int total,
+  }) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({'cartTotal': total}).then((value) {
+      emit(AppUpdateUserCartTotalSuccessState());
+    }).catchError((error) {
+      emit(AppUpdateUserCartTotalErrorState(error.toString()));
+    });
+  }
+
+  void updateUserCartCounter({
+    required String productUid,
+    required int counter,
+  }) {
+    FirebaseFirestore.instance
+        .collection('cart')
+        .doc('${FirebaseAuth.instance.currentUser!.email}$productUid')
+        .update({'counter': counter}).then((value) {
+      emit(AppUpdateUserCartCounterSuccessState());
+    }).catchError((error) {
+      emit(AppUpdateUserCartCounterErrorState(error.toString()));
     });
   }
 }

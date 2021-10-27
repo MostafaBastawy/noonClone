@@ -5,6 +5,7 @@ class UserDataModel {
   String? phone;
   String? address;
   String? uid;
+  int? cartTotal;
 
   UserDataModel(
     this.firstName,
@@ -13,6 +14,7 @@ class UserDataModel {
     this.phone,
     this.address,
     this.uid,
+    this.cartTotal,
   );
 
   UserDataModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class UserDataModel {
     phone = json['phone'];
     address = json['address'];
     uid = json['uid'];
+    cartTotal = json['cartTotal'];
   }
 
   Map<String, dynamic> toMap() {
@@ -32,6 +35,7 @@ class UserDataModel {
       'phone': phone,
       'address': address,
       'uid': uid,
+      'cartTotal': cartTotal,
     };
   }
 }

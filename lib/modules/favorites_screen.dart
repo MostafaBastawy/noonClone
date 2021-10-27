@@ -14,7 +14,7 @@ class FavoritesScreen extends StatelessWidget {
     return BlocBuilder<AppCubit, AppStates>(
       builder: (BuildContext context, state) {
         return Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

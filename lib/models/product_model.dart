@@ -3,7 +3,7 @@ class ProductDataModel {
   String? description;
   String? imageUrl;
   String? name;
-  String? price;
+  int? price;
   String? pUid;
 
   ProductDataModel(

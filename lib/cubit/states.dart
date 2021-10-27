@@ -95,3 +95,19 @@ class AppRemoveFromCartErrorState extends AppStates {
 
   AppRemoveFromCartErrorState(this.error);
 }
+
+class AppUpdateUserCartTotalSuccessState extends AppStates {}
+
+class AppUpdateUserCartTotalErrorState extends AppStates {
+  final String error;
+
+  AppUpdateUserCartTotalErrorState(this.error);
+}
+
+class AppUpdateUserCartCounterSuccessState extends AppStates {}
+
+class AppUpdateUserCartCounterErrorState extends AppStates {
+  final String error;
+
+  AppUpdateUserCartCounterErrorState(this.error);
+}

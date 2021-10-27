@@ -2,7 +2,7 @@ class FavoriteDataModel {
   String? description;
   String? imageUrl;
   String? name;
-  String? price;
+  int? price;
   String? userUid;
   String? pUid;
   FavoriteDataModel(
