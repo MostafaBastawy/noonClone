@@ -11,8 +11,6 @@ class CartProductItem extends StatelessWidget {
 
   CartProductItem(this.cartDataModel, {Key? key}) : super(key: key);
 
-  int counter = 1;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppStates>(
@@ -91,20 +89,12 @@ class CartProductItem extends StatelessWidget {
                                 productUid: cartDataModel!.pUid.toString(),
                                 counter: cartDataModel!.counter! - 1,
                               );
-
-                              // counter--;
-                              // if (counter == 1) {
-                              //   counter = 1;
-                              // } else {
-                              //   AppCubit.get(context).total =
-                              //       AppCubit.get(context).total -
-                              //           cartDataModel!.price!;
-                              //   AppCubit.get(context).updateUserCartTotal();
-                              //   AppCubit.get(context).updateUserCartCounter(
-                              //     counter: counter,
-                              //     productUid: cartDataModel!.pUid!,
-                              //   );
-                              // }
+                              AppCubit.get(context).updateUserCartTotal(
+                                total: AppCubit.get(context)
+                                        .userDataModel!
+                                        .cartTotal! -
+                                    cartDataModel!.price!,
+                              );
                             },
                             icon: const Icon(
                               Icons.arrow_circle_down,
@@ -127,15 +117,12 @@ class CartProductItem extends StatelessWidget {
                                 productUid: cartDataModel!.pUid.toString(),
                                 counter: cartDataModel!.counter! + 1,
                               );
-                              // counter++;
-                              // AppCubit.get(context).total =
-                              //     AppCubit.get(context).total +
-                              //         cartDataModel!.price!;
-                              // AppCubit.get(context).updateUserCartTotal();
-                              // AppCubit.get(context).updateUserCartCounter(
-                              //   counter: counter,
-                              //   productUid: cartDataModel!.pUid!,
-                              // );
+                              AppCubit.get(context).updateUserCartTotal(
+                                total: AppCubit.get(context)
+                                        .userDataModel!
+                                        .cartTotal! +
+                                    cartDataModel!.price!,
+                              );
                             },
                             icon: const Icon(
                               Icons.arrow_circle_up_outlined,
@@ -147,19 +134,20 @@ class CartProductItem extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
+                        print(cartDataModel!.counter);
+                        print(cartDataModel!.counter! * cartDataModel!.price!);
+                        print(AppCubit.get(context).userDataModel!.cartTotal);
                         AppCubit.get(context).removeFromCart(
                           userEmail: FirebaseAuth.instance.currentUser!.email
                               .toString(),
                           pUid: cartDataModel!.pUid.toString(),
                         );
-                        // AppCubit.get(context).total =
-                        //     AppCubit.get(context).total -
-                        //         (counter * cartDataModel!.price!);
-                        // AppCubit.get(context).updateUserCartTotal();
-                        // AppCubit.get(context).updateUserCartCounter(
-                        //   counter: counter,
-                        //   productUid: cartDataModel!.pUid!,
-                        // );
+                        AppCubit.get(context).updateUserCartTotal(
+                          total:
+                              (AppCubit.get(context).userDataModel!.cartTotal! -
+                                  (cartDataModel!.counter! *
+                                      cartDataModel!.price!)),
+                        );
                       },
                       child: Row(
                         children: const [
