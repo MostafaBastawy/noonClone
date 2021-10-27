@@ -88,6 +88,10 @@ class FavoritesProductItem extends StatelessWidget {
                           FirebaseAuth.instance.currentUser!.email.toString(),
                       pUid: favoriteDataModel!.pUid.toString(),
                     );
+                    AppCubit.get(context).updateUserCartTotal(
+                      total: (AppCubit.get(context).userDataModel!.cartTotal! +
+                          favoriteDataModel!.price!),
+                    );
                   },
                   child: Row(
                     children: [
@@ -113,15 +117,15 @@ class FavoritesProductItem extends StatelessWidget {
                     );
                   },
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.restore_from_trash_outlined,
-                        color: Colors.grey[500],
+                        color: Colors.red,
                       ),
                       Text(
                         'Remove',
                         style: TextStyle(
-                          color: Colors.grey[500],
+                          color: Colors.red,
                         ),
                       ),
                     ],

@@ -79,6 +79,10 @@ class ProductItem extends StatelessWidget {
                     productUid: '${productDataModel!.pUid}',
                     pUid: productDataModel!.pUid.toString(),
                   );
+                  AppCubit.get(context).updateUserCartTotal(
+                    total: (AppCubit.get(context).userDataModel!.cartTotal! +
+                        productDataModel!.price!),
+                  );
                 },
                 icon: const Icon(Icons.shopping_cart),
                 padding: const EdgeInsets.all(0),
