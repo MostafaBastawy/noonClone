@@ -7,7 +7,6 @@ import 'package:noon_clone/shared/Components/clicked_category_item.dart';
 
 class ProductScreen extends StatelessWidget {
   ProductScreen(this.categoryDataModel, {Key? key}) : super(key: key);
-  //ProductDataModel? productDataModel;
   CategoryDataModel? categoryDataModel;
 
   @override
@@ -15,15 +14,13 @@ class ProductScreen extends StatelessWidget {
     AppCubit cubit = AppCubit.get(context);
     cubit.getCategoryProducts(category: categoryDataModel!.categoryName!);
 
-    print(categoryDataModel!.categoryName!);
     return BlocBuilder<AppCubit, AppStates>(
       builder: (BuildContext context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Image(
-              image: AssetImage('assets/images/noon_logo.png'),
-              width: 100.0,
-              height: 100.0,
+            title: Text(
+              categoryDataModel!.categoryName.toString().toUpperCase(),
+              style: const TextStyle(color: Colors.black),
             ),
             leading: IconButton(
               icon: const Icon(
