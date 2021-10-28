@@ -80,14 +80,14 @@ class ClickedCategoryItem extends StatelessWidget {
                       imageUrl: productDataModel!.imageUrl.toString(),
                       name: productDataModel!.name.toString(),
                       price: productDataModel!.price!,
-                      productUid: '${productDataModel!.pUid}',
+                      productUid: productDataModel!.pUid.toString(),
                       pUid: productDataModel!.pUid.toString(),
                     );
                   },
                   child: Row(
                     children: [
                       Icon(
-                        Icons.shopping_cart,
+                        Icons.favorite,
                         color: Colors.grey[500],
                       ),
                       Text(

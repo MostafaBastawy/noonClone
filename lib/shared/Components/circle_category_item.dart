@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/models/category_model.dart';
 import 'package:noon_clone/modules/product_screen.dart';
 import 'package:noon_clone/shared/components.dart';
@@ -13,9 +12,7 @@ class CircleCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateTo(
-            context: context,
-            widget: ProductScreen(AppCubit.get(context).productDataModel));
+        navigateTo(context: context, widget: ProductScreen(categoryDataModel));
       },
       child: Container(
         height: 152.0,
@@ -35,7 +32,7 @@ class CircleCategoryItem extends StatelessWidget {
               height: 5.0,
             ),
             Text(
-              categoryDataModel!.categoryName.toString(),
+              categoryDataModel!.categoryName.toString().toUpperCase(),
               style:
                   const TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold),
             ),

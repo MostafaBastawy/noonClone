@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/models/category_model.dart';
 import 'package:noon_clone/modules/product_screen.dart';
 import 'package:noon_clone/shared/components.dart';
 
 class RectangleCategoryItem extends StatelessWidget {
   CategoryDataModel? categoryDataModel;
+
   RectangleCategoryItem(this.categoryDataModel, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,7 @@ class RectangleCategoryItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           navigateTo(
-              context: context,
-              widget: ProductScreen(AppCubit.get(context).productDataModel));
+              context: context, widget: ProductScreen(categoryDataModel));
         },
         child: Column(
           children: [
@@ -43,7 +42,7 @@ class RectangleCategoryItem extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '${categoryDataModel!.categoryName}',
+              categoryDataModel!.categoryName!.toString().toUpperCase(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

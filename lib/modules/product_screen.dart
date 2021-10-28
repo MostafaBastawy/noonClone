@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/cubit/states.dart';
-import 'package:noon_clone/models/product_model.dart';
+import 'package:noon_clone/models/category_model.dart';
 import 'package:noon_clone/shared/Components/clicked_category_item.dart';
 
 class ProductScreen extends StatelessWidget {
-  ProductScreen(this.productDataModel, {Key? key}) : super(key: key);
-  ProductDataModel? productDataModel;
+  ProductScreen(this.categoryDataModel, {Key? key}) : super(key: key);
+  //ProductDataModel? productDataModel;
+  CategoryDataModel? categoryDataModel;
 
   @override
   Widget build(BuildContext context) {
     AppCubit cubit = AppCubit.get(context);
-    cubit.getCategoryProducts(category: 'Baby');
+    cubit.getCategoryProducts(category: categoryDataModel!.categoryName!);
 
+    print(categoryDataModel!.categoryName!);
     return BlocBuilder<AppCubit, AppStates>(
       builder: (BuildContext context, state) {
         return Scaffold(
