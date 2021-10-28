@@ -467,4 +467,22 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppUpdateUserCartCounterErrorState(error.toString()));
     });
   }
+
+  List<ProductDataModel> categoryProducts = [];
+  void getCategoryProducts({required String category}) {
+    categoryProducts = [];
+    FirebaseFirestore.instance
+        .collection('products')
+        .where("category", isEqualTo: category)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        categoryProducts.add(ProductDataModel.fromJson(element.data()));
+        print(categoryProducts.length);
+      });
+      emit(AppGetCategoryProductsSuccessState());
+    }).catchError((error) {
+      emit(AppGetCategoryProductsErrorState(error.toString()));
+    });
+  }
 }

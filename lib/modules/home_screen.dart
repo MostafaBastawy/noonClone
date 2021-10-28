@@ -44,8 +44,11 @@ class HomeScreen extends StatelessWidget {
                     physics: null,
                     crossAxisCount: 2,
                     scrollDirection: Axis.horizontal,
-                    children: List.generate(cubit.categories.length,
-                        (index) => CircleCategoryItem(cubit.categories[index])),
+                    children: List.generate(
+                        cubit.categories.length,
+                        (index) => CircleCategoryItem(
+                              cubit.categories[index],
+                            )),
                   ),
                 ),
               ),

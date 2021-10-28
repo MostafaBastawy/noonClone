@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/models/category_model.dart';
+import 'package:noon_clone/modules/product_screen.dart';
+import 'package:noon_clone/shared/components.dart';
 
 class RectangleCategoryItem extends StatelessWidget {
   CategoryDataModel? categoryDataModel;
@@ -9,36 +12,43 @@ class RectangleCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          Container(
-            height: 90.0,
-            width: 90.0,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey[100]!,
-                width: 15.0,
-              ),
-            ),
-            child: Container(
+      child: InkWell(
+        onTap: () {
+          navigateTo(
+              context: context,
+              widget: ProductScreen(AppCubit.get(context).productDataModel));
+        },
+        child: Column(
+          children: [
+            Container(
+              height: 90.0,
+              width: 90.0,
               decoration: BoxDecoration(
-                color: Colors.grey[100],
-                image: DecorationImage(
-                  image: NetworkImage('${categoryDataModel!.categoryImage}'),
-                  fit: BoxFit.fill,
+                border: Border.all(
+                  color: Colors.grey[100]!,
+                  width: 15.0,
+                ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  image: DecorationImage(
+                    image: NetworkImage('${categoryDataModel!.categoryImage}'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            '${categoryDataModel!.categoryName}',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+            const SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              '${categoryDataModel!.categoryName}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }

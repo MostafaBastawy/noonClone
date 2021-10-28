@@ -111,3 +111,11 @@ class AppUpdateUserCartCounterErrorState extends AppStates {
 
   AppUpdateUserCartCounterErrorState(this.error);
 }
+
+class AppGetCategoryProductsSuccessState extends AppStates {}
+
+class AppGetCategoryProductsErrorState extends AppStates {
+  final String error;
+
+  AppGetCategoryProductsErrorState(this.error);
+}
