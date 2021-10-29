@@ -18,6 +18,10 @@ This is a full e-commerce application. I made by using Firebase, Shared Preferen
     - firebase_core
     - cloud_firestore
 
+## Video
+
+https://user-images.githubusercontent.com/81096412/139444507-9e974305-d9a1-4870-9f6d-179176c2f4d0.mp4
+
 ## Screenshots
 
 <table>
