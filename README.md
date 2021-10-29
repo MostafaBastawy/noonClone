@@ -22,14 +22,14 @@ This is a full e-commerce application. I made by using Firebase, Shared Preferen
 
 <table>
   <tr>
-    <td><img src="screen_shots/noon_tutorial.mp4" width=270 height=480></td>
-    <td><img src="screen_shots/noon1.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon2.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon3.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon4.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon5.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon6.jpg" width=270 height=480></td>
-    <td><img src="screen_shots/noon7.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon_tutorial.mp4" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon1.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon2.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon3.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon4.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon5.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon6.jpg" width=270 height=480></td>
+    <td><img src="lib/screen_shots/noon7.jpg" width=270 height=480></td>
     
   </tr>
  </table>
