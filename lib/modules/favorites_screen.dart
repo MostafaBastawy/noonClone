@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/cubit.dart';
@@ -13,31 +14,37 @@ class FavoritesScreen extends StatelessWidget {
 
     return BlocBuilder<AppCubit, AppStates>(
       builder: (BuildContext context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'My Wishlist',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (BuildContext context, int index) {
-                    return FavoritesProductItem(
-                        AppCubit.get(context).favorites[index]);
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 10.0);
-                  },
-                  itemCount: AppCubit.get(context).favorites.length,
+        return ConditionalBuilder(
+          condition: state is! AppGetFavoritesDataLoadingState,
+          builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'My Wishlist',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (BuildContext context, int index) {
+                      return FavoritesProductItem(
+                          AppCubit.get(context).favorites[index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 10.0);
+                    },
+                    itemCount: AppCubit.get(context).favorites.length,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          fallback: (BuildContext context) => const Center(
+            child: CircularProgressIndicator(),
           ),
         );
       },

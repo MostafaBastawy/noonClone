@@ -4,6 +4,8 @@ class AppInitialState extends AppStates {}
 
 class AppChangeBottomNavBarState extends AppStates {}
 
+class AppUserLoginLoadingState extends AppStates {}
+
 class AppUserLoginSuccessState extends AppStates {}
 
 class AppUserLoginErrorState extends AppStates {
@@ -11,6 +13,8 @@ class AppUserLoginErrorState extends AppStates {
 
   AppUserLoginErrorState(this.error);
 }
+
+class AppUserRegisterLoadingState extends AppStates {}
 
 class AppUserRegisterSuccessState extends AppStates {}
 
@@ -28,6 +32,8 @@ class AppCreateUserInDatabaseErrorState extends AppStates {
   AppCreateUserInDatabaseErrorState(this.error);
 }
 
+class AppGetUserDataLoadingState extends AppStates {}
+
 class AppGetUserDataSuccessState extends AppStates {}
 
 class AppGetUserDataErrorState extends AppStates {
@@ -35,6 +41,8 @@ class AppGetUserDataErrorState extends AppStates {
 
   AppGetUserDataErrorState(this.error);
 }
+
+class AppUserSignOutLoadingState extends AppStates {}
 
 class AppUserSignOutSuccessState extends AppStates {}
 
@@ -59,6 +67,8 @@ class AppGetProductsDataErrorState extends AppStates {
 
   AppGetProductsDataErrorState(this.error);
 }
+
+class AppGetFavoritesDataLoadingState extends AppStates {}
 
 class AppGetFavoritesDataSuccessState extends AppStates {}
 

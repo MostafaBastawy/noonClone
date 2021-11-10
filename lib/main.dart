@@ -17,6 +17,7 @@ void main() async {
   String uid = CacheHelper.getData(key: 'uid') ?? '';
   Widget startScreen;
   uid.isNotEmpty ? startScreen = HomeLayout() : startScreen = LoginScreen();
+
   runApp(MyApp(
     startScreen: startScreen,
   ));

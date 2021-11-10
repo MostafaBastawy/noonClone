@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/cubit/states.dart';
 import 'package:noon_clone/modules/login_screen.dart';
+import 'package:noon_clone/shared/Components/show_toast.dart';
 import 'package:noon_clone/shared/components.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -22,16 +23,21 @@ class ProfileScreen extends StatelessWidget {
     fullNameController.text = cubit.userDataModel!.fullName.toString();
     phoneController.text = cubit.userDataModel!.phone.toString();
     addressController.text = cubit.userDataModel!.address.toString();
-    cubit.getUserData();
+
     return BlocConsumer<AppCubit, AppStates>(
       listener: (BuildContext context, state) {
         if (state is AppUserSignOutSuccessState) {
+          defaultToast(
+            message: 'SignOut successfully',
+            color: Colors.green,
+            context: context,
+          );
           navigateAndFinish(context: context, widget: LoginScreen());
         }
       },
       builder: (BuildContext context, state) {
         return ConditionalBuilder(
-          condition: cubit.userDataModel != null,
+          condition: state is! AppGetUserDataLoadingState,
           builder: (BuildContext context) {
             return SingleChildScrollView(
               child: Padding(
@@ -105,11 +111,17 @@ class ProfileScreen extends StatelessWidget {
                       onFieldSubmitted: (value) {},
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    defaultButton(
-                      function: () {
-                        cubit.userSignOut();
-                      },
-                      text: 'Logout',
+                    ConditionalBuilder(
+                      condition: state is! AppUserLoginLoadingState,
+                      builder: (BuildContext context) => defaultButton(
+                        function: () {
+                          cubit.userSignOut();
+                        },
+                        text: 'Logout',
+                      ),
+                      fallback: (BuildContext context) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ],
                 ),

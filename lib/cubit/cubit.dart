@@ -25,7 +25,7 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
   void changeBottomNavBar(int index) {
     currentIndex = index;
-    getUserData();
+    //getUserData();
     emit(AppChangeBottomNavBarState());
   }
 
@@ -45,6 +45,7 @@ class AppCubit extends Cubit<AppStates> {
     required String phone,
     required String address,
   }) {
+    emit(AppUserRegisterLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -65,6 +66,7 @@ class AppCubit extends Cubit<AppStates> {
     required String email,
     required String password,
   }) {
+    emit(AppUserLoginLoadingState());
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -79,6 +81,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void userSignOut() {
+    emit(AppUserSignOutLoadingState());
     FirebaseAuth.instance.signOut().then((value) {
       emit(AppUserSignOutSuccessState());
 
@@ -124,6 +127,7 @@ class AppCubit extends Cubit<AppStates> {
   UserDataModel? userDataModel;
 
   void getUserData() {
+    emit(AppGetUserDataLoadingState());
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -352,6 +356,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<FavoriteDataModel> favorites = [];
   void getFavorites() {
+    emit(AppGetFavoritesDataLoadingState());
     FirebaseFirestore.instance
         .collection('favorites')
         .where("userUid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)

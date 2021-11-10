@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:noon_clone/cubit/cubit.dart';
 import 'package:noon_clone/cubit/states.dart';
 import 'package:noon_clone/modules/main_page_layout.dart';
 import 'package:noon_clone/modules/register_screen.dart';
+import 'package:noon_clone/shared/Components/show_toast.dart';
 import 'package:noon_clone/shared/components.dart';
 import 'package:noon_clone/shared/shared_preference.dart';
 
@@ -18,9 +20,22 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (BuildContext context, state) {
         if (state is AppUserLoginSuccessState) {
+          defaultToast(
+            message: 'Login successfully',
+            color: Colors.green,
+            context: context,
+          );
           CacheHelper.setData(
               key: 'uid', value: FirebaseAuth.instance.currentUser!.uid);
           navigateAndFinish(context: context, widget: HomeLayout());
+          AppCubit.get(context).getFavorites();
+          AppCubit.get(context).getCartItems();
+        }
+        if (state is AppUserLoginErrorState) {
+          defaultToast(
+              message: state.error.substring(30),
+              color: Colors.red,
+              context: context);
         }
       },
       builder: (BuildContext context, Object? state) {
@@ -39,6 +54,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
                   key: formKey,
+                  autovalidateMode: AutovalidateMode.always,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,9 +71,13 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
-                        validator: (String? value) {
+                        validator: (value) {
                           if (value!.isEmpty) {
-                            return 'email cant be empty';
+                            return 'field is empty';
+                          }
+                          String pattern = r'\w+@\w+\.\w+';
+                          if (!RegExp(pattern).hasMatch(value)) {
+                            return 'invalid email address format';
                           }
                         },
                         decoration: const InputDecoration(
@@ -75,9 +95,14 @@ class LoginScreen extends StatelessWidget {
                         obscureText: true,
                         controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
-                        validator: (String? value) {
+                        validator: (value) {
                           if (value!.isEmpty) {
-                            return 'password is too short';
+                            return 'field is empty';
+                          }
+                          String pattern =
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                          if (!RegExp(pattern).hasMatch(value)) {
+                            return 'invalid password format';
                           }
                         },
                         decoration: const InputDecoration(
@@ -91,16 +116,22 @@ class LoginScreen extends StatelessWidget {
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03),
-                      defaultButton(
-                        function: () {
-                          if (formKey.currentState!.validate()) {
-                            cubit.userLogin(
-                                email: emailController.text,
-                                password: passwordController.text);
-                          }
-                        },
-                        text: 'LOGIN',
-                        color: Colors.white,
+                      ConditionalBuilder(
+                        condition: state is! AppUserLoginLoadingState,
+                        builder: (BuildContext context) => defaultButton(
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              cubit.userLogin(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                            }
+                          },
+                          text: 'LOGIN',
+                          color: Colors.white,
+                        ),
+                        fallback: (BuildContext context) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05),
